@@ -25,21 +25,21 @@ const ridl = RidlJS(signer);
 
 ## Methods
 
-#### Get Chains
+### Get Chains
 Gets a list of the currently used chains for RIDL
 ```js
 const chains = await ridl.chains();
 // ['chain_id1', 'chain_id2',]
 ```
 
-#### Get Hosts
+### Get Hosts
 Gets a list of the currently used hosts for a chain
 ```js
 const hosts = await ridl.hosts(chain);
 // ['https://node.com']
 ```
 
-#### Add host
+### Add host
 
 **This method is turned off on the API for now**.
 
@@ -56,7 +56,7 @@ const options = {
 const added = await ridl.addHost(chain_id, host, options);
 ```
 
-#### Find Identity
+### Find Identity
 Finds an identity by username.
 
 **You should be doing this to find the identity's `id` and `chain` before calling `repute()` or `changekey()`**.
@@ -64,14 +64,14 @@ Finds an identity by username.
 const identity = await ridl.findIdentity(username);
 ```
 
-#### Find Reputation
+### Find Reputation
 Finds a reputation by entity.
 ```js
 const entity = 'contract::eosio.token';
 const identity = await ridl.findReputation(entity);
 ```
 
-#### Register Identity
+### Register Identity
 Finds a reputation by entity.
 ```js
 const result = await ridl.identify(username, publicKey);
@@ -79,7 +79,7 @@ if(result && result.success) ...
 else console.error(result);
 ```
 
-#### Change Identity Key
+### Change Identity Key
 Finds a reputation by entity.
 ```js
 const result = await ridl.changekey(identity.id, new_public_key, identity.chain);
@@ -87,7 +87,7 @@ if(result && result.success) ...
 else console.error(result);
 ```
 
-#### Apply Reputation
+### Apply Reputation
 Finds a reputation by entity.
 ```js
 const entity = 'contract::ridlridlridl';
@@ -101,7 +101,7 @@ else console.error(result);
 ```
 
 
-#### Special notes about `changekey` and `repute`.
+## Special notes about `changekey` and `repute`.
 
 Both of these methods can also take a `block_num` and `sig` parameter (always the last two params).
 These are used to sign a proofing hash which the smart contracts use to make sure no parameters were tampered with.
