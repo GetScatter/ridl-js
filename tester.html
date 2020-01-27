@@ -31,7 +31,7 @@
 	<script>
 		const userKey = "5KNNCwxjTeCvhz5tZdcphA1RCEvSduCDkmQSVKkZTQunSD9Jfxw";
 		const signer = hash => eosjs_ecc.signHash(hash, userKey);
-		const ridl = RIDL(signer, 'http://localhost:6543', 'local');
+		const ridl = RidlJS(signer, 'http://localhost:6543', 'local');
 
 		let identity = null;
 
@@ -59,7 +59,7 @@
 			if(!identity) return alert('Find your identity first.');
 			const entity = document.getElementById('entity').value;
 			const details = document.getElementById('details').value;
-			const result = await ridl.repute(identity.id, entity, [{type:'testing', value:1}], '1.0000 RIDL', details);
+			const result = await ridl.repute(identity.id, entity, [{type:'testing', value:1}], '1.0000 RIDL', identity.chain, details);
 			if(result && result.success) alert('Success!');
 			else console.error(result);
 		}
