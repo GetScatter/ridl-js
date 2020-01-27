@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RIDL Lib Tester</title>
+	<script src="./index.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/eosjs-ecc@4.0.4/lib/eosjs-ecc.min.js"
+	        integrity="sha512-dYFDmK/d9r3/NCp6toLtfkwOjSMRBaEzaGAx1tfRItC0nsI0hVLERk05iNBQR7uDNI7ludYhcBI4vUiFHdjsTQ=="
+	        crossorigin="anonymous"></script>
+</head>
+<body>
+
+<input id="username" placeholder="Enter a username" />
+<button onclick="window.findIdentity()">Search</button>
+<button onclick="window.identify()">Register Identity</button>
+
+<br>
+<br>
+<input id="entity" placeholder="Enter an entity" />
+<input id="details" placeholder="Enter some text" />
+<button onclick="window.repute()">Repute</button>
+<input id="identity_id" placeholder="Identity ID" disabled="true" />
+
+<br>
+<br>
+<input id="entity_rep" placeholder="Enter an entity" />
+<button onclick="window.findReputation()">Find Reputation</button>
+<div id="rep_data"></div>
+
+
+	<script>
+		const userKey = "5KNNCwxjTeCvhz5tZdcphA1RCEvSduCDkmQSVKkZTQunSD9Jfxw";
+		const signer = hash => eosjs_ecc.signHash(hash, userKey);
+		const ridl = RIDL(signer, 'http://localhost:6543', 'local');
+
+		let identity = null;
+
+		const setIdentity = _identity => {
+			document.getElementById('identity_id').value = _identity.id;
+			identity = _identity;
+		}
+
+		window.findIdentity = async () => {
+			const username = document.getElementById('username').value;
+			const found = await ridl.findIdentity(username);
+			if(found) setIdentity(found);
+			console.log(found);
+		}
+
+		window.identify = async () => {
+			const username = document.getElementById('username').value;
+			const result = await ridl.identify(username, eosjs_ecc.privateToPublic(userKey));
+			console.log('result', result);
+			if(result && result.success) setTimeout(() => window.findIdentity(), 2500);
+			else console.error(result);
+		}
+
+		window.repute = async () => {
+			if(!identity) return alert('Find your identity first.');
+			const entity = document.getElementById('entity').value;
+			const details = document.getElementById('details').value;
+			const result = await ridl.repute(identity.id, entity, [{type:'testing', value:1}], '1.0000 RIDL', details);
+			if(result && result.success) alert('Success!');
+			else console.error(result);
+		}
+
+		window.findReputation = async () => {
+			const entity = document.getElementById('entity_rep').value;
+			const result = await ridl.findReputation(entity);
+			if(result) document.getElementById('rep_data').innerHTML = `<pre>${JSON.stringify(result.fragments)}</pre>`;
+			else console.error(result);
+		}
+	</script>
+
+
+</body>
+</html>
