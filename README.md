@@ -7,8 +7,11 @@ not require users to have EOSIO accounts (public key pinning).
 ## Instantiation
 
 #### Nodejs
+- npm: `npm i -S ridl-js`
+- yarn: `yarn add ridl-js`
+
 ```js
-const RidlJS = require('ridljs');
+const RidlJS = require('ridl-js');
 
 // https://github.com/EOSIO/eosjs-ecc/
 const signer = hash => ecc.signHash(hash, someKey);
