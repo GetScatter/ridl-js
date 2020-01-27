@@ -53,7 +53,7 @@ Specific requirements for this method will be posted here when it is live.
 const options = {
     logic_contract:'ridlridlridl',
     token_contract:'ridlridltkns',
-    sender_account:'ridlridlsend,
+    sender_account:'ridlridlsend',
     creator_account:'ridlridluser',
 };
 
