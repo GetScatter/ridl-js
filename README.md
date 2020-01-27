@@ -21,6 +21,7 @@ const ridl = RidlJS(signer);
 
 #### Browser
 ```js
+// Just copy `index.js` to your project and rename it.
 <script src="./ridl.js"></script>
 
 ... same as above
