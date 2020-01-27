@@ -8,7 +8,9 @@ const GET_GEN = host => (route) => fetch(`${host}/v1/${route}`).then(x => x.json
 const POST_GEN = host => (route, data) => fetch(`${host}/v1/${route}`, { method:"POST", headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, body:JSON.stringify(data) }).then(x => x.json()).catch(() => ({error:'Could not contact API host.'}));
 
 
-const RidlJS = (signer = null, api_host = DEFAULT_API) => {
+const RidlJS = (signer, api_host = DEFAULT_API) => {
+	if(!signer) throw 'You must pass a signer into RidlJS';
+
 	const GET = GET_GEN(api_host);
 	const POST = POST_GEN(api_host);
 	const getBlockNum = chain => GET(`/block_num/${chain}`);
