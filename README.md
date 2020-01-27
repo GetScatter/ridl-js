@@ -74,7 +74,7 @@ const identity = await ridl.findReputation(entity);
 ### Register Identity
 Finds a reputation by entity.
 ```js
-const result = await ridl.identify(username, publicKey);
+const result = await ridl.identify(username, publicKey, chain = DEFAULT_CHAIN);
 if(result && result.success) ...
 else console.error(result);
 ```
