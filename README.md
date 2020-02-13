@@ -29,6 +29,12 @@ const ridl = RidlJS(signer);
 
 ## Methods
 
+### Valid Name
+Checks if a username is valid.
+```js
+if(ridl.validName(username)){ ... }
+```
+
 ### Get Chains
 Gets a list of the currently used chains for RIDL
 ```js
